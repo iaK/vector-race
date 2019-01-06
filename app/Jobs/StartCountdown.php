@@ -56,6 +56,6 @@ class StartCountdown implements ShouldQueue
             return;
         }
 
-        $this->resetSkipped();
+        $this->race->resetSkipped();
     }
 }
