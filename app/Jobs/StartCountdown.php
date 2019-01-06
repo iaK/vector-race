@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Race;
 use App\Events\TurnChanged;
+use App\Events\GameClosed;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
