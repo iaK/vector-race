@@ -147,7 +147,7 @@ class RaceController extends Controller
 
     public function skip(Request $request, Race $race)
     {
-        if (! $race->user_turn_id == auth()->id()) {
+        if (! $race->user_turn_id == auth()->id() && $race->status == "going") {
             return;
         }
 
@@ -157,7 +157,7 @@ class RaceController extends Controller
 
     public function move(Request $request, Race $race)
     {
-        if (! $race->user_turn_id == auth()->id()) {
+        if (! $race->user_turn_id == auth()->id() && $race->status == "going") {
             return;
         }
 
@@ -171,7 +171,7 @@ class RaceController extends Controller
 
     public function win(Request $request, Race $race)
     {
-        if (! $race->user_turn_id == auth()->id()) {
+        if (! $race->user_turn_id == auth()->id() && $race->status == "going") {
             return;
         }
 
@@ -183,7 +183,7 @@ class RaceController extends Controller
 
     public function fail(Request $request, Race $race)
     {
-        if (! $race->user_turn_id == auth()->id()) {
+        if (! $race->user_turn_id == auth()->id() && $race->status == "going") {
             return;
         }
 
@@ -205,6 +205,7 @@ class RaceController extends Controller
         tap($race->stillInRace(), function($stillInRace) use ($race) {
             if ($stillInRace->count() == 1) {
                 $user = User::find($stillInRace[0]["id"]);
+                $race->crownWinner($user);
                 broadcast(new PlayerWon($race, $user));
             }
         });

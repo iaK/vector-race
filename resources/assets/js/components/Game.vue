@@ -133,6 +133,7 @@
                                 {
                                     text: "Ok..",
                                     func: () => {
+                                        this.leaveGame();
                                         this.$modal.hide('result-board');
                                     }
                                 }
