@@ -60,12 +60,13 @@
                     };
 
                     this.moveCurrentCar(car);
-                    this.failIfOutsideCourse(car);
+                    this.failIfOutsideCourse(car).then(() => {
+                        if(this.gameState != "done") {
+                            this.sendClick(JSON.parse(JSON.stringify(car)));
+                        }
+                    });
                     this.checkIfCross();
 
-                    if(this.gameState != "done") {
-                        this.sendClick(JSON.parse(JSON.stringify(car)));
-                    }
 
                     this.$nextTick(() => {
                         this.calculateNewPointers(this.currentCar);

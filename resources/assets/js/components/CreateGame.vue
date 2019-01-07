@@ -19,7 +19,7 @@
     </div>
 </template>
 <script>
-    import { mapState, mapActions } from 'vuex';
+    import { mapState, mapActions, mapMutations } from 'vuex';
 
 
     export default {
@@ -32,14 +32,7 @@
         },
 
         mounted() {
-            this.$store.watch(
-                (state) => {
-                    return this.$store.state.createdGame;
-                },
-                (val) => {
-                    this.$router.push({name: `race`, params: { raceId: this.createdGame }});
-                }
-            );
+            this.setCreatedGame(null);
         },
 
         computed: {
@@ -47,9 +40,12 @@
         },
 
         methods: {
-            ...mapActions(["createGame"]),
+            ...mapMutations(["setCreatedGame"]),
+            ...mapActions(["createGame", "joinGame"]),
             create() {
-                this.createGame(this.selectedCourse);
+                this.createGame(this.selectedCourse).then(() => {
+                    this.joinGame(this.createdGame)
+                });
             },
             cancel() {
                 this.$router.push({name: `lobby`});

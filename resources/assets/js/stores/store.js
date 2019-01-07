@@ -250,7 +250,7 @@ export default new Vuex.Store({
             axios.post("/race", {course_id: courseId}).then((e) => {
                 context.commit("setCreatedGame", e.data.data.id);
             });
-            },
+        },
         leaveGame(context) {
             axios.post(`/race/${context.state.race}/leave`).then(() => {
                 router.replace({name: `lobby`});
@@ -398,7 +398,7 @@ export default new Vuex.Store({
                     {
                         text: "Lobby",
                         func: () => {
-                            context.dispatch("leaveGame");
+                            context.dispatch("this.leaveGame();");
                             Event.fire('hide-result-board');
                         }
                     }

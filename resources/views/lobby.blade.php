@@ -8,7 +8,7 @@
     <div class="container mx-auto">
         <router-view>
     </div>
-    <div class="fixed pin-r pin-b p-5 italic text-white">
+    <div class="fixed pin-r pin-b p-5 italic text-white text-xs">
         <div>
             Made by Isak Berglind at <a class="text-white" href="http://www.landslide-design.se">Landslide design</a>.
         </div>
