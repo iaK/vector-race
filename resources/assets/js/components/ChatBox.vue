@@ -23,31 +23,38 @@
             return {
                 events: [],
                 message: '',
+                eventTokens: [],
             }
         },
 
         mounted() {
-            Event.listen('Joining', (user) => {
-                    this.events.push({
-                        message: user.username + ' joined the race',
-                        type: "system",
-                    })
+            this.eventTokens.push(Event.listen('Joining', (name, user) => {
+                this.events.push({
+                    message: user.username + ' joined the race',
+                    type: "system",
                 })
-                .listen('Leaving', (user) => {
-                    this.events.push({
-                        message: user.username + ' left the race',
-                        type: "system",
-                    })
+            }));
+            this.eventTokens.push(Event.listen('Leaving', (name, user) => {
+                this.events.push({
+                    message: user.username + ' left the race',
+                    type: "system",
                 })
-                .listen('Here', (users) => {
-                })
-                .listen('MessagePosted', (e) => {
-                    this.events.push({
-                        message: e.message,
-                        type: e.type
-                    });
-                    this.scrollToBottom();
+            }));
+            this.eventTokens.push(Event.listen('Here', (users) => {
+            }));
+            this.eventTokens.push(Event.listen('MessagePosted', (name, e) => {
+                this.events.push({
+                    message: e.message,
+                    type: e.type
                 });
+                this.scrollToBottom();
+            }));
+        },
+
+        beforeDestroy() {
+            this.eventTokens.forEach((token) => {
+                Event.ignore(token);
+            });
         },
 
         computed: {

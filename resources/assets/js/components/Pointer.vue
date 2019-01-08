@@ -6,6 +6,12 @@
 
         props: ["location","pos", "speedLeft", "speedTop"],
 
+        data() {
+            return {
+                eventToken: null,
+            }
+        },
+
         watch: {
             click() {
                 this.checkPointer();
@@ -13,9 +19,13 @@
         },
 
         mounted() {
-            Event.listen("backgroundRendered", () => {
+            this.eventToken = Event.listen("backgroundRendered", () => {
                 this.$forceUpdate();
             })
+        },
+
+        beforeDestroy() {
+            Event.ignore(this.eventToken);
         },
 
         render() {
@@ -61,7 +71,7 @@
 
                     this.moveCurrentCar(car);
                     this.failIfOutsideCourse(car).then(() => {
-                        if(this.gameState != "done") {
+                        if(this.gameState == "going") {
                             this.sendClick(JSON.parse(JSON.stringify(car)));
                         }
                     });

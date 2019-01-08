@@ -168,8 +168,6 @@
 
             setupWatcher() {
                 this.interval = setInterval(() => {
-                    this.ctx.clearRect(0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
-
                     Event.fire("rerender");
                 }, 100);
             },

@@ -4,12 +4,22 @@
     export default {
         props: ["car", "color"],
 
+        data() {
+            return {
+                eventToken: null,
+            }
+        },
+
         render() {
             this.drawTrace()
         },
 
         mounted() {
-            Event.listen("backgroundRendered", this.drawTrace);
+            this.eventToken = Event.listen("backgroundRendered", this.drawTrace);
+        },
+
+        beforeDestroy() {
+            Event.ignore(this.eventToken);
         },
 
         computed: {

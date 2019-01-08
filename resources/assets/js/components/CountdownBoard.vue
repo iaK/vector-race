@@ -12,19 +12,27 @@
             return {
                 interval: null,
                 secondsLeft: 0,
+                eventTokens: [],
             }
         },
 
         mounted() {
-            Event.listen('TurnChanged', (e) => {
-                    this.clearClock();
-                    this.startClock();
-                })
-                .listen('PlayerWon', (e) => {
-                    this.clearClock();
-                }).listen('click', () => {
-                    this.clearClock();
-                })
+            this.eventTokens.push(Event.listen('TurnChanged', (e) => {
+                this.clearClock();
+                this.startClock();
+            }))
+            this.eventTokens.push(Event.listen('PlayerWon', (e) => {
+                this.clearClock();
+            }))
+            this.eventTokens.push(Event.listen('click', () => {
+                this.clearClock();
+            }))
+        },
+
+        beforeDestroy() {
+            this.eventTokens.forEach((token) => {
+                Event.ignore(token);
+            });
         },
 
         computed: {

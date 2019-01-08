@@ -33,6 +33,7 @@
 
         mounted() {
             this.setCreatedGame(null);
+            console.log(this.createdGame);
         },
 
         computed: {
@@ -44,7 +45,7 @@
             ...mapActions(["createGame", "joinGame"]),
             create() {
                 this.createGame(this.selectedCourse).then(() => {
-                    this.joinGame(this.createdGame)
+                    this.$router.push({name: `race`, params: { raceId: this.createdGame }});
                 });
             },
             cancel() {

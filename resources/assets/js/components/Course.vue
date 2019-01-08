@@ -2,8 +2,19 @@
     import { mapMutations, mapState } from 'vuex';
 
     export default {
+
+        data() {
+            return {
+                eventToken: null,
+            }
+        },
+
         mounted() {
-            Event.listen('rerender', this.rerender);
+            this.eventToken = Event.listen('rerender', this.rerender);
+        },
+
+        beforeDestroy() {
+            Event.ignore(this.eventToken);
         },
 
         render() {
@@ -43,6 +54,7 @@
         methods: {
             ...mapMutations(["setCoursePath"]),
             rerender() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 this.drawBackground();
                 this.drawCourse();
                 this.drawFinishLine();

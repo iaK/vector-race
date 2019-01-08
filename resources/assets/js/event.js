@@ -1,18 +1,19 @@
-import Vue from 'vue';
+import PubSub from 'pubsub-js';
 
 window.Event = new class {
-    constructor() {
-        this.vue = new Vue();
-    }
 
     fire(event, data = null) {
-        this.vue.$emit(event, data);
+        PubSub.publishSync(event, data);
 
         return this;
     }
 
     listen(event, callback) {
-        this.vue.$on(event, callback);
+        return PubSub.subscribe(event, callback);
+    }
+
+    ignore(token) {
+        PubSub.unsubscribe(token);
 
         return this;
     }

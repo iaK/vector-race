@@ -24,18 +24,26 @@
         data() {
             return {
                 text: '',
+                eventTokens: [],
             }
         },
 
         mounted() {
-            Event.listen('TurnChanged', (e) => {
-                    if (e.car == this.yourCar && this.gameState != "done") {
-                        this.setText("Your turn!")
-                    }
-                 })
-                .listen('messageBoard', (message) => {
-                    this.setText(message.message);
-                });
+            this.eventTokens.push(Event.listen('TurnChanged', (name, e) => {
+                if (e.car == this.yourCar && this.gameState != "done") {
+                    this.setText("Your turn!")
+                }
+             }));
+
+            this.eventTokens.push(Event.listen('messageBoard', (name, message) => {
+                this.setText(message.message);
+            }));
+        },
+
+        beforeDestroy() {
+            this.eventTokens.forEach((token) => {
+                Event.ignore(token);
+            });
         },
 
         computed: {

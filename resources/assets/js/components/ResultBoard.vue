@@ -53,7 +53,7 @@
         },
 
         methods: {
-            setValues(e) {
+            setValues(name, e) {
                 this.heading = e.heading;
                 this.text = e.text;
                 this.buttons = e.buttons;

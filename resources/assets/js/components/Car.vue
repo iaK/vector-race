@@ -7,13 +7,17 @@
         data() {
             return {
                 carImage: null,
+                eventToken: null,
             }
         },
 
         created() {
             this.carImage = document.getElementById("car");
-            console.log(this.carImage);
-            Event.listen('backgroundRendered', this.rerender);
+            this.eventToken = Event.listen('backgroundRendered', this.rerender);
+        },
+
+        beforeDestroy() {
+            Event.ignore(this.eventToken);
         },
 
         render(createElement) {

@@ -247,7 +247,7 @@ export default new Vuex.Store({
             });
         },
         createGame(context, courseId) {
-            axios.post("/race", {course_id: courseId}).then((e) => {
+            return axios.post("/race", {course_id: courseId}).then((e) => {
                 context.commit("setCreatedGame", e.data.data.id);
             });
         },
@@ -313,8 +313,9 @@ export default new Vuex.Store({
         },
         failIfOutsideCourse(context, car) {
             if (! context.state.click.inside) {
-                axios.post(`/race/${context.state.race}/fail`, {"reason": "Outside couse", ...car});
                 context.dispatch("fail", "outside course");
+                context.commit("setGameEnded");
+                return axios.post(`/race/${context.state.race}/fail`, {"reason": "Outside couse", ...car});
             }
         },
         checkIfCross(context) {

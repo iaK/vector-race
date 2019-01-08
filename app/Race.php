@@ -15,15 +15,14 @@ class Race extends Model
     {
         $this->participants()->attach($participant["id"]);
 
-        $pdata = $this->participant_data;
-
-        $pdata[] = [
-            "id" => $participant["id"],
-            "status" => "going",
-            "trace" => [$this->course->starting_point],
-        ];
-
-        $this->update(["participant_data" => $pdata]);
+        tap($this->participant_data, function($participant_data) use ($participant) {
+            $participant_data[] = [
+                "id" => $participant["id"],
+                "status" => "going",
+                "trace" => [$this->course->starting_point],
+            ];
+            $this->update(["participant_data" => $participant_data]);
+        });
 
         return $this;
     }
