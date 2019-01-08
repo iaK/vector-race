@@ -4,7 +4,12 @@
     <result-board></result-board>
     <user-settings></user-settings>
     <how-to></how-to>
-    <img id="car" src="/img/car.png" style="display: none" alt="">
+    <img id="yellow" src="/img/car_yellow.png" style="display: none" alt="">
+    <img id="green" src="/img/car_green.png" style="display: none" alt="">
+    <img id="blue" src="/img/car_blue.png" style="display: none" alt="">
+    <img id="red" src="/img/car_red.png" style="display: none" alt="">
+    <img id="orange" src="/img/car_orange.png" style="display: none" alt="">
+    <img id="purple" src="/img/car_purple.png" style="display: none" alt="">
     <div class="container mx-auto">
         <router-view>
     </div>
