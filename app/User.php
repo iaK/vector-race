@@ -19,6 +19,12 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
+    public function hasUnfinishedRaces()
+    {
+        return $this->races()->whereIn("status", ["lobby", "going"])->exists();
+    }
+
     public function races()
     {
         return $this->belongsToMany(Race::class);

@@ -9,10 +9,10 @@
             </select>
         </div>
         <div class="flex">
-            <button class="btn" @click="create">
+            <button class="btn" @click="create" :disabled="clicked">
                 Create
             </button>
-            <button class="btn mr-2 ml-2" @click="cancel">
+            <button class="btn mr-2 ml-2" @click="cancel" :disabled="clicked">
                 Cancel
             </button>
         </div>
@@ -27,13 +27,13 @@
         data() {
             return {
                 courses: [{name: "Standard", id: 1}],
-                selectedCourse: null,
+                selectedCourse: 1,
+                clicked: false,
             }
         },
 
         mounted() {
             this.setCreatedGame(null);
-            console.log(this.createdGame);
         },
 
         computed: {
@@ -44,8 +44,21 @@
             ...mapMutations(["setCreatedGame"]),
             ...mapActions(["createGame", "joinGame"]),
             create() {
+                this.clicked = true;
                 this.createGame(this.selectedCourse).then(() => {
                     this.$router.push({name: `race`, params: { raceId: this.createdGame }});
+                }).catch((e) => {
+                    this.clicked = false;
+                    Event.fire("show-result-board", {
+                        heading: "Error!",
+                        text: e.response.data.data.message,
+                        buttons: [{
+                            text: "Back",
+                            func: () => {
+                                this.$modal.hide('result-board');
+                            }
+                        }]
+                    })
                 });
             },
             cancel() {

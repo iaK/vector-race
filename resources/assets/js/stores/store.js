@@ -60,7 +60,7 @@ export default new Vuex.Store({
             },
 
             trace: {
-                width: 1,
+                width: 3,
             },
 
             car: {
@@ -208,7 +208,8 @@ export default new Vuex.Store({
                     speed: car.speed ? car.speed : state.course.starting_speed,
                     name: car.username,
                     trace: car.trace && car.trace.length > 1 ? car.trace : [state.course.starting_point],
-                    traceColor: "blue",
+                    traceColor: car.traceColor,
+                    carColor: car.carColor,
                     present: true,
                     online: car.online,
                     inRace: true,
@@ -252,9 +253,10 @@ export default new Vuex.Store({
             });
         },
         leaveGame(context) {
-            axios.post(`/race/${context.state.race}/leave`).then(() => {
-                router.replace({name: `lobby`});
+            axios.post(`/race/${context.state.race}/leave`).then(({data}) => {
                 context.commit('resetGame');
+                context.commit('removeRace', data.data)
+                router.replace({name: `lobby`});
             })
         },
         changeTurn(context, id) {

@@ -36,7 +36,16 @@ class RaceController extends Controller
 
     public function races(Request $request)
     {
-        $races = Race::with(["host", "participants"])->whereStatus('lobby')->get();
+        $races = Race::with(["host", "participants"])
+            ->join('race_user', function ($join) {
+                $join->on('race_user.race_id', '=', 'races.id')
+                    ->where("race_user.user_id", "=", auth()->id());
+            })
+            ->whereStatus('lobby')
+            ->orWhere(function ($query) {
+                $query->where('status', "going")
+                      ->whereRaw('race_user.user_id IS NOT NULL');
+            })->get();
 
         return $this->respond($races);
     }
@@ -95,7 +104,7 @@ class RaceController extends Controller
         }
 
 
-        return $this->respond();
+        return $this->respond($race->fresh());
     }
 
     public function create()
@@ -128,6 +137,12 @@ class RaceController extends Controller
 
     public function store(Request $request)
     {
+        if (auth()->user()->hasUnfinishedRaces()) {
+            return $this->respond([
+                "message" => "You can't create a game when you have unfinished games"
+            ], 403);
+        }
+
         $race = Race::create([
             "host_id" => auth()->id(),
             "course_id" => $request->course_id,
@@ -203,6 +218,10 @@ class RaceController extends Controller
     protected function crownWinnerIfOneLeft($race)
     {
         tap($race->stillInRace(), function($stillInRace) use ($race) {
+            if ($stillInRace->count() == 0) {
+                $race->update(["status" => "closed"]);
+                broadcast(new GameClosed($race))->toOthers();
+            }
             if ($stillInRace->count() == 1) {
                 $user = User::find($stillInRace[0]["id"]);
                 $race->crownWinner($user);

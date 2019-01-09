@@ -78,6 +78,9 @@
                 })
                 .listen('RaceCreated', (e) => {
                     this.addRace(e.race);
+                })
+                .listen('RaceStarted', (e) => {
+                    this.removeRace(e.race);
                 });
         },
 

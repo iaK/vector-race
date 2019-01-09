@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Race;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -33,6 +34,9 @@ class RaceStarted implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('race.' . $this->race->id);
+        return [
+            new PresenceChannel('race.' . $this->race->id),
+            new Channel('races')
+        ];
     }
 }

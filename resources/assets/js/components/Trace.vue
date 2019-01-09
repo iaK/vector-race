@@ -29,6 +29,10 @@
         methods: {
             ...mapActions(["drawLine"]),
             drawTrace() {
+                if (!this.car.trace) {
+                    return;
+                }
+
                 var prevTrace = this.car.trace[0];
                 this.car.trace.forEach(trace => {
                     this.drawLine({

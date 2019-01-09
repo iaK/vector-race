@@ -14,7 +14,7 @@
         },
 
         created() {
-            this.encodedImage = carImages.yellow;
+            this.encodedImage = carImages[this.car.carColor];
             this.image = new Image();
             this.image.src = this.encodedImage;
             this.eventToken = Event.listen('backgroundRendered', this.rerender);
@@ -44,6 +44,9 @@
                 this.drawCar()
             },
             drawCar() {
+                if (!this.car.speed) {
+                    return;
+                }
                 let car = this.car;
                 let angel = this.speedToAngel(car.speed);
                 this.ctx.translate(car.location.x, car.location.y);
