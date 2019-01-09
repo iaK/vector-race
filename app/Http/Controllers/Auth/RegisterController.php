@@ -67,6 +67,8 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            "car_color" => "green",
+            "trace_color" => "red",
         ]);
     }
 }
