@@ -18,9 +18,9 @@
             this.encodedImage = carImages[this.car.carColor];
             this.image = new Image();
             this.image.src = this.encodedImage;
-            this.image.onload(() => {
+            this.image.onload = () => {
                 this.imageLoaded = true;
-            });
+            };
             this.eventToken = Event.listen('backgroundRendered', this.rerender);
         },
 
