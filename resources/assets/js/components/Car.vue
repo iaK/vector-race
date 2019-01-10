@@ -9,7 +9,8 @@
             return {
                 encodedImage: null,
                 eventToken: null,
-                image: null
+                image: null,
+                imageLoaded: false,
             }
         },
 
@@ -17,6 +18,9 @@
             this.encodedImage = carImages[this.car.carColor];
             this.image = new Image();
             this.image.src = this.encodedImage;
+            image.onLoad(() => {
+                this.imageLoaded = true;
+            });
             this.eventToken = Event.listen('backgroundRendered', this.rerender);
         },
 
@@ -44,7 +48,7 @@
                 this.drawCar()
             },
             drawCar() {
-                if (!this.car.speed) {
+                if (!this.car.speed || !this.imageLoaded) {
                     return;
                 }
                 let car = this.car;
