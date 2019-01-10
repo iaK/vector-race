@@ -208,8 +208,8 @@ export default new Vuex.Store({
                     speed: car.speed ? car.speed : state.course.starting_speed,
                     name: car.username,
                     trace: car.trace && car.trace.length > 1 ? car.trace : [state.course.starting_point],
-                    traceColor: car.traceColor,
-                    carColor: car.carColor,
+                    traceColor: car.trace_color,
+                    carColor: car.car_color,
                     present: true,
                     online: car.online,
                     inRace: true,
@@ -401,7 +401,7 @@ export default new Vuex.Store({
                     {
                         text: "Lobby",
                         func: () => {
-                            context.dispatch("this.leaveGame();");
+                            context.dispatch("leaveGame");
                             Event.fire('hide-result-board');
                         }
                     }
