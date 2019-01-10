@@ -216,8 +216,8 @@ class Race extends Model
             return [
                 "id" => $participant->id,
                 "username" => $participant->username,
-                "carColor" => $participant->car_color,
-                "traceColor" => $participant->trace_color,
+                "car_color" => $participant->car_color,
+                "trace_color" => $participant->trace_color,
                 "status" => $data["status"],
                 "trace" => $data["trace"],
                 "speed" => $data["speed"] ?? null,
