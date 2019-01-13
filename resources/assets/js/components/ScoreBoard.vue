@@ -23,7 +23,7 @@
                         </span>
                     </div>
                     <button
-                        v-if="isHost(yourCar) && car.id != host"
+                        v-if="isHost(yourCar) && car.id != host && gameState == 'lobby'"
                         class="ml-2 scoreboard-item py-2 px-2 border border-blue-lightest border-1 text-white text-center"
                         @click="kickCar(car)"
                         style="width: 50px"
@@ -42,7 +42,7 @@
         props: ['cars'],
 
         computed: {
-            ...mapState(["yourCar", "host"]),
+            ...mapState(["yourCar", "host", 'gameState']),
             ...mapGetters(["currentCar"]),
         },
 

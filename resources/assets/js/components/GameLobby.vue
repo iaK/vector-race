@@ -92,6 +92,9 @@
 
         computed: {
             ...mapState(["races"]),
+            uniqueRaces() {
+                return [...new Set(this.races.map(race => race.id))];
+            }
         },
 
         methods: {

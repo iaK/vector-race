@@ -68,7 +68,7 @@
                             top: this.currentCar.speed.top + this.speedTop
                         }
                     };
-
+                    // this.animateMoveCar(car);
                     this.moveCurrentCar(car);
                     this.failIfOutsideCourse(car).then(() => {
                         if(this.gameState == "going") {
@@ -85,6 +85,38 @@
                 } else {
                     this.$forceUpdate();
                 }
+            },
+
+            animateMoveCar(car) {
+                let location = [
+                    this.currentCar.location,
+                    {x: car.location.x, y: car.location.y}
+                ];
+                let points = this.calcWaypoints(location);
+                console.log(points);
+                points.forEach((point, index) => {
+                    setTimeout(() => {
+                        car.location = point;
+                        this.moveCurrentCar(car);
+                        this.checkIfCross();
+                    }, 10 * (index +1))
+                })
+            },
+
+            calcWaypoints(vertices){
+                let waypoints=[];
+                for(let i=1;i<vertices.length;i++){
+                    let pt0=vertices[i-1];
+                    let pt1=vertices[i];
+                    let dx=pt1.x-pt0.x;
+                    let dy=pt1.y-pt0.y;
+                    for(let j=0;j<10;j++){
+                        let x=pt0.x+dx*j/10;
+                        let y=pt0.y+dy*j/10;
+                        waypoints.push({x:x,y:y});
+                    }
+                }
+                return waypoints;
             },
 
             isClicked(clickLocation) {

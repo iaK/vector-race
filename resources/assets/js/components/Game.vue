@@ -51,9 +51,7 @@
             Echo.join(`race.${this.race}`)
                 .joining((user) => {
                     Event.fire("Joining", user);
-                    console.log("joined", user)
                     if (this.notInRace(user)) {
-                        console.log(user);
                         this.setCars([user]);
                     }
                     this.setOnline(user);
@@ -105,6 +103,7 @@
                     console.log("Race started", e.race);
                     this.changeRaceState(e.race.status);
                     Event.fire("RaceStarted", e);
+                    Event.fire('messageBoard',{message: 'Game started'});
                 })
                 .listen('PlayerWon', (e) => {
                     Event.fire("PlayerWon", e);
@@ -142,7 +141,7 @@
                         .fire("GameClosed", e);
 
                 })
-                .listen('MessagePosten', (e) => {
+                .listen('MessagePosted', (e) => {
                     Event.fire("MessagePosted", e);
                 });
 
@@ -169,7 +168,7 @@
             setupWatcher() {
                 this.interval = setInterval(() => {
                     Event.fire("rerender");
-                }, 100);
+                }, 10);
             },
             click(e) {
                 let x = e.clientX - $(this.$refs.canvas).position().left;

@@ -86,7 +86,13 @@ export default new Vuex.Store({
             });
         },
         addRace(state, race) {
-            state.races.push(race);
+            let races = state.races.filter((r) => {
+                return r.id == race.id;
+            });
+
+            if (races.length == 0) {
+                state.races.push(race);
+            }
         },
         setKicked(state, user) {
             state.cars.forEach((car, index) => {
@@ -322,7 +328,7 @@ export default new Vuex.Store({
         },
         checkIfCross(context) {
             let car = context.getters.currentCar;
-
+            console.log(car);
             let lineStart = {};
             let lineEnd = {};
 

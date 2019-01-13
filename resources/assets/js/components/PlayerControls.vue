@@ -3,9 +3,6 @@
         <button v-if="isHost" class="btn" @click="startRace">
             Start
         </button>
-        <button v-if="isHost" class="btn" @click="stopRace">
-            Stop
-        </button>
         <button class="btn" @click="confirm">
             Leave game
         </button>
