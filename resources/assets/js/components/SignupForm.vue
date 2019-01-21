@@ -1,8 +1,8 @@
 <template>
     <div class="absolute w-full h-full pin flex items-center justify-center">
-        <div class="text-center">
-            <h1 class="text-white mb-6 text-5xl">Create an account</h1>
-            <form style="width: 400px">
+        <div class="text-center mx-4">
+            <h1 class="text-white mb-6 text-3xl lg:text-5xl">Create an account</h1>
+            <form class="w-full" style="max-width: 400px">
                 <ul class="list-reset" v-if="errors">
                     <li
                         v-for="error in getErrors"

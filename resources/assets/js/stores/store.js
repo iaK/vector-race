@@ -31,6 +31,7 @@ export default new Vuex.Store({
         race: null,
         races: [],
         createdGame: null,
+        viewport: null,
         pointers: {
             baseLocation: {x: 0, y:0},
             location: {
@@ -241,6 +242,9 @@ export default new Vuex.Store({
         setUser(state, user) {
             state.user = user;
         },
+        setViewport(state, viewport) {
+            state.viewport = viewport;
+        },
     },
     actions: {
         kickCar(context, car) {
@@ -249,7 +253,7 @@ export default new Vuex.Store({
             });
         },
         getRaces(context) {
-            axios.get("/races").then(({data}) => {
+            axios.get("/race").then(({data}) => {
                 context.commit('setRaces', data.data);
             });
         },

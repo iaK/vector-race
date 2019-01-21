@@ -58,7 +58,7 @@
         },
 
         computed: {
-            ...mapState(["yourCar", 'race']),
+            ...mapState(["yourCar", 'race','viewport']),
             ...mapGetters(["car"]),
         },
 

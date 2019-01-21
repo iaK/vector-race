@@ -22,7 +22,18 @@ class RaceController extends Controller
 {
     public function index()
     {
-        return view('lobby');
+        $races = Race::with(["host", "participants"])
+            ->join('race_user', function ($join) {
+                $join->on('race_user.race_id', '=', 'races.id')
+                    ->where("race_user.user_id", "=", auth()->id());
+            })
+            ->whereStatus('lobby')
+            ->orWhere(function ($query) {
+                $query->where('status', "going")
+                      ->whereRaw('race_user.user_id IS NOT NULL');
+            })->get();
+
+        return $this->respond($races);
     }
 
     public function find(Request $request, Race $race)
@@ -36,18 +47,7 @@ class RaceController extends Controller
 
     public function races(Request $request)
     {
-        $races = Race::with(["host", "participants"])
-            ->join('race_user', function ($join) {
-                $join->on('race_user.race_id', '=', 'races.id')
-                    ->where("race_user.user_id", "=", auth()->id());
-            })
-            ->whereStatus('lobby')
-            ->orWhere(function ($query) {
-                $query->where('status', "going")
-                      ->whereRaw('race_user.user_id IS NOT NULL');
-            })->get();
 
-        return $this->respond($races);
     }
 
     public function join(Race $race)

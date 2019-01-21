@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-md mx-auto pt-8">
+    <div class="max-w-md mx-auto pt-8 px-4">
         <h1 class="text-white mb-4">Lobby</h1>
         <div class="p-2 lobbybox mb-4">
             <div
@@ -20,8 +20,8 @@
                 </ul>
             </div>
         </div>
-        <div class="flex justify-between">
-            <div>
+        <div class="sm:flex sm:justify-between sm:flex-wrap">
+            <div class="mb-4 flex-grow flex w-full sm:w-auto">
                 <button class="btn mr-2 ml-2" @click="join">
                     Join Game
                 </button>
@@ -29,7 +29,7 @@
                     Create game
                 </button>
             </div>
-            <div>
+            <div class="w-full sm:w-auto">
                 <button class="btn mr-2" @click="howto">
                     How to play
                 </button>
@@ -82,6 +82,10 @@
                 .listen('RaceStarted', (e) => {
                     this.removeRace(e.race);
                 });
+
+            window.addEventListener("resize", (e) => {
+                console.log(window.width);
+            })
         },
 
         beforeDestroy() {

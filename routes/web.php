@@ -14,12 +14,13 @@
 
 
 Route::group(["middleware" => "auth"], function () {
-    Route::get('/', 'RaceController@index');
-    Route::get("/race", 'RaceController@index');
+    Route::redirect('/', 'race');
+    Route::get("/lobby", 'LobbyController@index');
     Route::get("/race/create", "RaceController@create");
     Route::post("/race", "RaceController@store");
-    Route::get("/races", "RaceController@races");
+    Route::get("/race", "RaceController@index");
     Route::get('/race/{race}', "RaceController@find");
+
     Route::post("/race/{race}/move", "RaceController@move");
     Route::post("/race/{race}/start", "RaceController@start");
     Route::post("/race/{race}/stop", "RaceController@stop");

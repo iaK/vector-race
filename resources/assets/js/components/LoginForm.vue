@@ -1,8 +1,8 @@
 <template>
     <div class="absolute w-full h-full pin flex items-center justify-center">
-        <div class="text-center">
-            <h1 class="text-white mb-6 text-5xl">Vectorrace</h1>
-            <form style="width: 400px">
+        <div class="text-center mx-4">
+            <h1 class="text-white mb-6 text-3xl lg:text-5xl">Vectorrace</h1>
+            <form class="w-full" style="max-width: 400px">
                 <p v-if="error" class="text-red-light mb-2 italic font-bold">Wrong email or password</p>
                 <input class="mb-2 p-4 chat-input text-white w-full" placeholder="Email" type="text" v-model="email">
                 <input class="mb-4 p-4 chat-input text-white w-full" placeholder="Password" type="password" v-model="password">

@@ -1,17 +1,23 @@
 <template>
     <div>
-        <button v-if="isHost" class="btn" @click="startRace">
-            Start
-        </button>
-        <button class="btn" @click="confirm">
-            Leave game
-        </button>
+        <div class="xl:hidden">
+            <h2 class="text-white text-center mb-8">Player controls</h2>
+        </div>
+        <div class="flex justify-center xl:block">
+            <button v-if="isHost" class="btn mr-2" @click="startRace">
+                Start
+            </button>
+            <button class="btn" @click="confirm">
+                Leave game
+            </button>
+        </div>
     </div>
 </template>
 <script>
     import { mapActions, mapState, mapGetters } from 'vuex'
 
     export default {
+
         computed: {
             ...mapState(["race", "host", 'yourCar']),
             isHost() {

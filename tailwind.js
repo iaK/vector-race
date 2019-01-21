@@ -103,6 +103,8 @@ let colors = {
   'blue-light': '#6cb2eb',
   'blue-lighter': '#bcdefa',
   'blue-lightest': '#bee3f5',
+  'blue-trans-darker': 'rgba(9, 29, 54, 0.7)',
+  'blue-trans-lighter': 'rgba(9, 29, 54, 0.7)',
 
   'indigo-darkest': '#191e38',
   'indigo-darker': '#2f365f',
@@ -692,7 +694,10 @@ module.exports = {
     '16': '4rem',
     '20': '5rem',
     '24': '6rem',
+    '28': '7rem',
+    '30': '7.5rem',
     '32': '8rem',
+    '40': '10rem',
   },
 
 

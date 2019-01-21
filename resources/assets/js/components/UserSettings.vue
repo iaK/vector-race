@@ -1,14 +1,14 @@
 <template>
-    <div v-if="user" class="absolute pin-t pin-r p-5 z-50">
+    <div v-if="user" class="w-full">
         <img
             :src="gravatarUrl"
             alt="Avatar"
-            class="w-10 h-10 rounded-full cursor-pointer z-50"
+            class="w-10 h-10 rounded-full cursor-pointer z-50 border border-1 border-blue-lightest fixed pin-t pin-l xl:pin-none xl:pin-r mx-auto xl:text-left pin-r z-50 mt-4 xl:mr-4"
             @click="openMenu"
         />
         <modal
             name="user-settings"
-            classes="bg-transparent pin flex items-center justify-center"
+            classes="bg-transparent pin flex items-center justify-center px-4"
             :adaptive="true"
             :scrollable="true"
             height="auto"

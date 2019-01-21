@@ -7,7 +7,7 @@ export default new VueRouter({
         { path: '/signup', component: require('./components/SignupForm.vue'), name: "signup"},
         { path: '/race/create', component: require('./components/CreateGame.vue'), name: "create"},
         { path: '/race/:raceId', component: require('./components/GameLoading.vue'), name: "race"},
-        { path: '/race', component: require('./components/GameLobby.vue'), name: "lobby"},
+        { path: '/lobby', component: require('./components/GameLobby.vue'), name: "lobby"},
         { path: '/404', component: require('./components/GameNotFound.vue'), name: "404"},
     ]
 });

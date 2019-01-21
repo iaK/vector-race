@@ -1,5 +1,5 @@
 <template>
-<div class="max-w-md mx-auto pt-8">
+    <div class="max-w-md mx-auto pt-8 px-4">
         <h1 class="text-white mb-4">Create game</h1>
         <div class="p-5 lobbybox mb-4">
             <select v-model="selectedCourse" class="inner text-white p-2">

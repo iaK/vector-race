@@ -1,21 +1,81 @@
 <template>
-    <div class="h-full flex items-center justify-center z-10">
-
-        <div class="fixed pin-r pin-t">
-            <div class="p-10 flex justify-end flex-wrap" style="max-width: 400px">
-                <div class="pt-10">
-                    <countdown-board></countdown-board>
-                    <chat-box></chat-box>
+    <div class="h-full lg:flex lg:items-center lg:justify-center z-10">
+        <div class="fixed pin-t pin-r" ref="right">
+            <toggle-icon
+                open="chatbox"
+                icon="far fa-comment"
+                class="mt-20 xl:hidden"
+            ></toggle-icon>
+        </div>
+        <div class="fixed pin-r pin-t" ref="rightSide">
+            <div class="xl:mr-5 xl:mt-20 flex justify-end flex-wrap" style="width: 400px">
+                <div class="">
+                    <div class="absolute xl:relative pin-t pin-r">
+                        <countdown-board></countdown-board>
+                    </div>
+                    <div class="absolute xl:relative xl:mt-0 pin-t pin-r">
+                        <chat-box v-if="bigScreen" class="w-full"></chat-box>
+                        <modal
+                            name="chatbox"
+                            :adaptive="true"
+                            :scrollable="true"
+                            height="auto"
+                            classes="bg-transparent px-4"
+                        >
+                            <chat-box
+                                v-if="smallScreen"
+                                class="w-full"
+                                :adaptive="true"
+                                :scrollable="true"
+                                height="auto"
+                            ></chat-box>
+                        </modal>
+                    </div>
                 </div>
             </div>
         </div>
 
         <canvas @click="click" ref="canvas" height="960" width="960"></canvas>
 
-        <div class="fixed pin-l pin-t">
-            <div class="px-5 py-5 m-5">
-                <score-board :cars="cars" class="mb-10"></score-board>
-                <player-controls></player-controls>
+        <div class="fixed pin-t pin-l" ref="right">
+            <toggle-icon
+                open="scoreboard"
+                icon="far fa-space-shuttle"
+                class="mt-4 xl:hidden"
+            ></toggle-icon>
+            <toggle-icon
+                open="player-controls"
+                icon="far fa-gamepad"
+                class="mt-4 xl:hidden"
+            ></toggle-icon>
+        </div>
+        <div class="fixed pin-l pin-t" ref="leftSide">
+            <div class="m-5">
+                <div class="absolute xl:relative pin-t pin-l">
+                    <score-board v-if="bigScreen" :cars="cars" class="mb-10"></score-board>
+                    <modal
+                        name="scoreboard"
+                        :adaptive="true"
+                        :scrollable="true"
+                        height="auto"
+                        classes="bg-blue-trans-lighter p-5 border border-1 border-blue-lightest px-4"
+                    >
+                        <score-board v-if="smallScreen" :cars="cars" class="mb-10"></score-board>
+                    </modal>
+                </div>
+                <div class="absolute xl:relative pin-t pin-l">
+                    <player-controls v-if="bigScreen"></player-controls>
+                    <modal
+                        name="player-controls"
+                        :adaptive="true"
+                        :scrollable="true"
+                        height="auto"
+                        classes="bg-blue-trans-lighter p-5 border border-1 border-blue-lightest px-4"
+                    >
+                        <player-controls v-if="smallScreen"></player-controls>
+                    </modal>
+                </div>
+
             </div>
         </div>
 
@@ -153,22 +213,34 @@
         },
 
         computed: {
-            ...mapState(["ctx", "config", "canvas", "path", "cars", 'yourCar', 'state','winner','race']),
+            ...mapState(["ctx", "config", "canvas", "path", "cars", 'yourCar', 'state','winner','race', "viewport"]),
             ...mapGetters(["currentCar", "yourTurn", "notInRace"]),
 
             loaded() {
                 return this.hasLoaded;
-            }
+            },
+
+            bigScreen() {
+                if (parseInt(this.viewport.rule) <= 995) {
+                    return false
+                }
+                return true;
+            },
+
+            smallScreen() {
+                return ! this.bigScreen;
+            },
         },
 
         methods: {
             ...mapMutations(["setCanvas", "setCtx", "setCourse","setClick", "setCurrentCar", "setYourCar", "changeRaceState", "setOnline", "setOffline", "setState",'setCars', 'setNotInRace']),
             ...mapActions(['moveCurrentCar', "changeTurn", "startRace", "calculateNewPointers", "leaveGame", "win", "fail"]),
 
+
             setupWatcher() {
                 this.interval = setInterval(() => {
                     Event.fire("rerender");
-                }, 10);
+                }, 1000);
             },
             click(e) {
                 let x = e.clientX - $(this.$refs.canvas).position().left;
@@ -199,17 +271,14 @@
 </script>
 
 <style>
-.con {
+    canvas {
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
         width: 960px;
         height: 960px;
-
-}
+    }
     .bg {
         background-image: url("/img/track.jpg");
         background-size: cover;
-    }
-
-    canvas {
-        margin-top: 20px;
     }
 </style>
