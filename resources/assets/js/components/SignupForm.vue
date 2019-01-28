@@ -11,14 +11,14 @@
                     ></li>
                 </ul>
 
-                <input class="mb-2 p-4 chat-input text-white w-full" placeholder="Email" type="text" v-model="email">
-                <input class="mb-2 p-4 chat-input text-white w-full" placeholder="Username" type="text" v-model="username">
-                <input class="mb-4 p-4 chat-input text-white w-full" placeholder="Password" type="password" v-model="password">
-                <input class="mb-4 p-4 chat-input text-white w-full" placeholder="Password again" type="password" v-model="password_confirmation">
+                <input dusk="email" class="mb-2 p-4 chat-input text-white w-full" placeholder="Email" type="text" v-model="email">
+                <input dusk="username" class="mb-2 p-4 chat-input text-white w-full" placeholder="Username" type="text" v-model="username">
+                <input dusk="password" class="mb-4 p-4 chat-input text-white w-full" placeholder="Password" type="password" v-model="password">
+                <input dusk="password-confirmation" class="mb-4 p-4 chat-input text-white w-full" placeholder="Password again" type="password" v-model="password_confirmation">
 
 
                 <div class="text-center">
-                    <button class="btn" @click.prevent="signup">
+                    <button dusk="signup-button" class="btn" @click.prevent="signup">
                         Signup!
                     </button>
                     <button class="btn" @click.prevent="login">
@@ -73,7 +73,7 @@
                     password: this.password,
                     password_confirmation: this.password_confirmation,
                 }).then(({data}) => {
-                    window.location.href = "/race";
+                    window.location.href = "/lobby";
                 }).catch((e) => {
                     this.errors = e.response.data.errors;
                 });

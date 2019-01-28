@@ -263,7 +263,7 @@ export default new Vuex.Store({
             });
         },
         leaveGame(context) {
-            axios.post(`/race/${context.state.race}/leave`).then(({data}) => {
+            axios.delete(`/race/${context.state.race}/join`).then(({data}) => {
                 context.commit('resetGame');
                 context.commit('removeRace', data.data)
                 router.replace({name: `lobby`});
@@ -358,7 +358,8 @@ export default new Vuex.Store({
             axios.post(`/race/${context.state.race}/start`,{cars: context.state.cars});
         },
         joinGame(context, race) {
-            axios.post(`/race/${race}/join`).then(({data}) => {
+            axios.post(`/race/${race}/join`).then(({data: {data}}) => {
+                console.log(data);
                 context.commit("setCourse", data.course);
                 context.commit("setYourCar", data.user_id);
                 context.commit('setCurrentCar', data.user_turn_id);

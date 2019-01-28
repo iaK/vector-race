@@ -39,12 +39,6 @@
                 2 * Math.PI
             );
             this.ctx.fill();
-            // this.ctx.fillRect(
-            //     this.location.x - (this.config.pointers.width / 2),
-            //     this.location.y - (this.config.pointers.height / 2),
-            //     this.config.pointers.height,
-            //     this.config.pointers.width
-            // );
         },
 
         computed: {

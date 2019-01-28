@@ -29,7 +29,7 @@ class Race extends Model
 
     public function addParticipants($participants)
     {
-        $participants->each(function ($participant) {
+        collect($participants)->each(function ($participant) {
             $this->addParticipant($participant);
         });
 
@@ -177,6 +177,11 @@ class Race extends Model
         return $this->participants->contains($user);
     }
 
+    public function isHost(User $user)
+    {
+        return $this->host_id == $user->id;
+    }
+
     public function winner()
     {
         return $this->belongsTo(User::class, "winner_id");
@@ -223,5 +228,19 @@ class Race extends Model
                 "speed" => $data["speed"] ?? null,
             ];
         });
+    }
+
+    public function toArray()
+    {
+        return [
+            "id" => $this->id,
+            "course" => $this->course,
+            "user_id" => auth()->id(),
+            "user_turn_id" => $this->user_turn_id,
+            "state" => $this->status,
+            "participants" => $this->participantsAsJson(),
+            "winner_id" => $this->winner_id,
+            "host_id" => $this->host_id,
+        ];
     }
 }

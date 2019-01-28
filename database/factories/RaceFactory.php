@@ -14,5 +14,6 @@ $factory->define(Race::class, function (Faker $faker) {
         "host_id" => function() {
             return factory(User::class)->create()->id;
         },
+        "status" => "lobby",
     ];
 });

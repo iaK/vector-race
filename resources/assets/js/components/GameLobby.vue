@@ -25,7 +25,7 @@
                 <button class="btn mr-2 ml-2" @click="join">
                     Join Game
                 </button>
-                <button class="btn" @click="create">
+                <button dusk="create-game-button" class="btn" @click="create">
                     Create game
                 </button>
             </div>

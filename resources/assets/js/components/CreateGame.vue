@@ -9,7 +9,7 @@
             </select>
         </div>
         <div class="flex">
-            <button class="btn" @click="create" :disabled="clicked">
+            <button dusk="create-game-button" class="btn" @click="create" :disabled="clicked">
                 Create
             </button>
             <button class="btn mr-2 ml-2" @click="cancel" :disabled="clicked">

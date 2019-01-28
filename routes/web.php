@@ -14,26 +14,38 @@
 
 
 Route::group(["middleware" => "auth"], function () {
-    Route::redirect('/', 'race');
-    Route::get("/lobby", 'LobbyController@index');
-    Route::get("/race/create", "RaceController@create");
-    Route::post("/race", "RaceController@store");
-    Route::get("/race", "RaceController@index");
-    Route::get('/race/{race}', "RaceController@find");
-
-    Route::post("/race/{race}/move", "RaceController@move");
-    Route::post("/race/{race}/start", "RaceController@start");
-    Route::post("/race/{race}/stop", "RaceController@stop");
-    Route::post("/race/{race}/win", "RaceController@win");
-    Route::post("/race/{race}/fail", "RaceController@fail");
-    Route::post("/race/{race}/skip", "RaceController@skip");
-    Route::post("/race/{race}/chat", "RaceController@chat");
-    Route::get("/race/{race}/info", "RaceController@info");
-    Route::post("/race/{race}/join", "RaceController@join");
-    Route::post("/race/{race}/leave", "RaceController@leave");
-    Route::post("/race/{race}/kick/{user}", "RaceController@kick");
+    Route::redirect('/', '/lobby');
 
     Route::put("/user/{user}", "UserController@update");
+    Route::get("/lobby", 'LobbyController@index');
+
+    Route::group(["prefix" => "race"], function() {
+
+        Route::post("{race}/join", "JoinRaceController@store");
+        Route::delete("/{race}/join", "JoinRaceController@delete");
+
+        Route::get("/{race}/info", "RaceInformationController@index");
+
+        Route::post("/{race}/start", "StartRaceController@post");
+        // Route::post("/{race}/stop", "RaceStateController@destroy");
+
+        Route::post("/{race}/move", "MoveCarController@store");
+
+        Route::post("/{race}/win", "WinRaceController@store");
+        Route::delete("/{race}/win", "WinRaceController@destroy");
+
+        Route::post("/{race}/skip", "SkipTurnController@store");
+
+        Route::post("/{race}/chat", "ChatController@chat");
+
+        Route::post("/{race}/kick/{user}", "KickUserController@store");
+
+        Route::get('/{race}', "RaceController@find");
+        Route::get("/", "RaceController@index");
+        Route::post("/", "RaceController@store");
+        Route::get("/create", "RaceController@index");
+        
+    });
 });
 
 

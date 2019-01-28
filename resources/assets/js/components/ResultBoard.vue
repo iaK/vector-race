@@ -21,8 +21,9 @@
 
                     <div class="flex justify-center w-full">
                         <button
+                            v-for="(button, index) in buttons"
                             class="btn mr-2"
-                            v-for="button in buttons"
+                            :class="'button-' + index"
                             @click="button.func"
                             v-text="button.text"
                         >

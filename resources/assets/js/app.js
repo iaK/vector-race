@@ -17,6 +17,8 @@ Vue.use(VueRouter);
 Vue.use(VModal);
 Vue.use(vClickOutside);
 Vue.use(Viewport)
+Vue.config.productionTip = false;
+// Vue.config.devtools = false;
 
 // Vue.component('car-trace', require('./components/CarTrace.vue'));
 Vue.component('vector-game', require('./components/Game.vue'));
