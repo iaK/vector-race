@@ -19,11 +19,8 @@ class UserController extends Controller
 
         $user->update($request->only(["username", "car_color", "trace_color"]));
 
-        return response()->json([
-            "status" => "ok",
-            "data" => [
-                "user" => $user->fresh(),
-            ]
+        return $this->respond([
+            "user" => $user->fresh(),
         ]);
     }
 

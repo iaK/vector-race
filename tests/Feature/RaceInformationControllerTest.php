@@ -23,7 +23,7 @@ class RaceInformationControllerTest extends TestCase
 
         $response = $this->get("/race/{$this->race->id}/info")
             ->assertStatus(200)
-            ->assertJsonStructure([
+            ->assertJsonStructure(["data" => [
                 "id",
                 "course",
                 "user_turn_id",
@@ -31,6 +31,6 @@ class RaceInformationControllerTest extends TestCase
                 "participants",
                 "winner_id",
                 "host_id",
-            ]);
+            ]]);
     }
 }

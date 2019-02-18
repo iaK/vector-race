@@ -22,6 +22,8 @@ class WinRaceController extends Controller
         $race->crownWinner(auth()->user());
 
         broadcast(new PlayerWon($race, auth()->user()));
+
+        return $this->respond();
     }
 
     public function destroy(Request $request, Race $race)

@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vectorrace!</title>
-    <link rel="stylesheet" href="{{ mix("main.css") }}">
+    <link rel="stylesheet" href="{{ asset("main.css") }}">
     @yield('head')
 </head>
 
@@ -14,7 +14,7 @@
     <div id="app" class="w-full h-full">
         @yield('content')
     </div>
-    <script src="{{ mix("app.js") }}"></script>
+    <script src="{{ asset("app.js") }}"></script>
     @yield('script')
 </body>
 </html>

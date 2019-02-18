@@ -22,13 +22,15 @@
             this.eventToken = Event.listen("backgroundRendered", () => {
                 this.$forceUpdate();
             })
+            window.addEventListener('keyup', this.setEventHandlers);
         },
 
         beforeDestroy() {
             Event.ignore(this.eventToken);
+            window.removeEventListener('keyup', this.setEventHandlers);
         },
 
-        render() {
+        render(createElement) {
             this.ctx.fillStyle = '#dbf1f7';
             this.ctx.beginPath();
             this.ctx.arc(
@@ -42,14 +44,31 @@
         },
 
         computed: {
-            ...mapState(["ctx", "config", "click", "yourCar", 'gameState']),
+            ...mapState(["ctx", "config", "click", "yourCar", 'gameState', "canvas"]),
             ...mapGetters(["currentCar"]),
         },
 
         methods: {
             ...mapMutations(["clearTurn"]),
             ...mapActions(["calculateBasePointer", "moveCurrentCar", "calculateNewPointers", "addToTrace", 'changeTurn', "sendClick", "failIfOutsideCourse", "checkIfCross"]),
-
+            fakeClick() {
+                Event.fire("fakeClick", {
+                    clientX: this.canvas.offsetLeft + this.location.x,
+                    clientY: this.canvas.offsetTop + this.location.y,
+                });
+            },
+            setEventHandlers(event) {
+                if (
+                    !! (event.keyCode === 50 && this.pos === "bottom") ||
+                    !! (event.keyCode === 52 && this.pos === "left") ||
+                    !! (event.keyCode === 54 && this.pos === "right") ||
+                    !! (event.keyCode === 56 && this.pos === "top") ||
+                    !! (event.keyCode === 53 && this.pos === "middle")
+                ) {
+                    console.log(this.pos);
+                    this.fakeClick();
+                }
+            },
             checkPointer() {
                 if (this.isClicked(this.click)) {
                     Event.fire('click');

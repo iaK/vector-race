@@ -31,7 +31,8 @@ class RaceController extends Controller
             ->orWhere(function ($query) {
                 $query->where('status', "going")
                       ->whereRaw('race_user.user_id IS NOT NULL');
-            })->get();
+            })
+            ->get();
 
         return $this->respond($races);
     }

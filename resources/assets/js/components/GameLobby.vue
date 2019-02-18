@@ -15,7 +15,7 @@
                         @click="mark(index)"
                         @dblclick="join"
                     >
-                        {{ race.host.username }} <i>({{ race.participant_data.length }} / 4)</i>
+                        {{ race.host.username }} <i>({{ race.participants.length }} / 4)</i>
                     </li>
                 </ul>
             </div>

@@ -21,5 +21,7 @@ class MoveCarController extends Controller
         broadcast(new TurnChanged($race, $nextUser->id));
 
         StartCountdown::dispatch($race, $race->moves);
+
+        return $this->respond();
     }
 }

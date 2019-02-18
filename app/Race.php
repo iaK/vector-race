@@ -241,6 +241,7 @@ class Race extends Model
             "participants" => $this->participantsAsJson(),
             "winner_id" => $this->winner_id,
             "host_id" => $this->host_id,
+            "host" => $this->host,
         ];
     }
 }

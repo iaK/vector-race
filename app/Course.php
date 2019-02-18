@@ -21,14 +21,15 @@ class Course extends Model
         return $this->hasMany(Race::class);
     }
 
-    // public function __toString()
-    // {
-    //     return json_encode([
-    //         "startingPoint" => $this->starting_point,
-    //         "startingSpeed" => $this->starting_speed,
-    //         "finishLine" => $this->finish_line,
-    //         "inner" => $this->inner_track,
-    //         "outer" => $this->outer_track,
-    //     ]);
-    // }
+    public function __toString()
+    {
+        return json_encode([
+            "id" => $this->id,
+            "starting_point" => $this->starting_point,
+            "starting_speed" => $this->starting_speed,
+            "finish_line" => $this->finish_line,
+            "inner_track" => $this->inner_track,
+            "outer_track" => $this->outer_track,
+        ]);
+    }
 }

@@ -17,5 +17,7 @@ class StartRaceController extends Controller
         broadcast(new RaceStarted($race));
         broadcast(new TurnChanged($race, $race->fresh()->userTurn->id));
         StartCountdown::dispatch($race, $race->moves);
+
+        return $this->respond();
     }
 }

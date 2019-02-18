@@ -18,6 +18,9 @@
         },
 
         render() {
+            if (! this.course) {
+                return;
+            }
             this.drawCourse();
             this.drawFinishLine()
         },
@@ -25,19 +28,22 @@
         computed: {
             ...mapState(["ctx", 'config', 'course', 'canvas']),
             path() {
+
                 let path = new Path2D();
 
                 let outer = this.course.outer_track.slice();
                 let start = outer.shift();
+ 
                 path.moveTo(start.x, start.y);
 
                 outer.forEach(value => {
                     path.lineTo(value.x, value.y);
                 });
-
+                
                 path.closePath();
 
                 let inner = this.course.inner_track.slice();
+                
                 start = inner.shift();
                 path.moveTo(start.x, start.y);
 
@@ -54,6 +60,10 @@
         methods: {
             ...mapMutations(["setCoursePath"]),
             rerender() {
+                if (!this.course) {
+                    return;
+                }
+                
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 this.drawBackground();
                 this.drawCourse();

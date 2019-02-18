@@ -82,7 +82,9 @@
         <div v-if="hasLoaded">
             <game-course></game-course>
             <game-car v-for="car in cars" :car="car" :key="car.id"></game-car>
-            <game-pointers></game-pointers>
+            <div id="pointers">
+                <game-pointers></game-pointers>
+            </div>
         </div>
         <message-board></message-board>
     </div>
@@ -161,7 +163,7 @@
                 })
                 .listen('RaceStarted', (e) => {
                     console.log("Race started", e.race);
-                    this.changeRaceState(e.race.status);
+                    this.changeRaceState(e.race.state);
                     Event.fire("RaceStarted", e);
                     Event.fire('messageBoard',{message: 'Game started'});
                 })
@@ -206,6 +208,7 @@
                 });
 
             Event.fire('rerender');
+            Event.listen('fakeClick', (name, message) => {this.click(message)});
         },
 
         beforeDestroy() {
@@ -240,15 +243,11 @@
             setupWatcher() {
                 this.interval = setInterval(() => {
                     Event.fire("rerender");
-                }, 1000);
+                }, 100);
             },
             click(e) {
-                let x = e.clientX - $(this.$refs.canvas).position().left;
-                let y = e.clientY - $(this.$refs.canvas).position().top;
-
                 let r = this.canvas.getBoundingClientRect()
                 let inside = this.ctx.isPointInPath(this.path, e.clientX - r.left, e.clientY - r.top, "evenodd");
-
                 let clickLocation = {
                     x: e.clientX - r.left,
                     y: e.clientY - r.top,

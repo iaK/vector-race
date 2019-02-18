@@ -9,7 +9,7 @@ class RaceInformationController extends Controller
 {
     public function index(Race $race)
     {
-        return response()->json(
+        return $this->respond(
             $race->toArray()
         );
     }

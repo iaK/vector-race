@@ -64,6 +64,7 @@
 
         mounted() {
             let car = this.car(this.yourCar);
+
             this.initset({
                 x: (car.speed.left * this.config.gridWidthX) + car.location.x,
                 y: (car.speed.top * this.config.gridWidthY) + car.location.y

@@ -176,6 +176,11 @@ export default new Vuex.Store({
         },
         setCourse(state, course) {
             state.course = course;
+            state.course.outer_track = typeof state.course.outer_track === "string" ? JSON.parse(state.course.outer_track) : state.course.outer_track;
+            state.course.inner_track = typeof state.course.inner_track === "string" ? JSON.parse(state.course.inner_track) : state.course.inner_track;
+            state.course.starting_point = typeof state.course.starting_point === "string" ? JSON.parse(state.course.starting_point) : state.course.starting_point;
+            state.course.finish_line = typeof state.course.finish_line === "string" ? JSON.parse(state.course.finish_line) : state.course.finish_line;
+            state.course.starting_speed = typeof state.course.starting_speed === "string" ? JSON.parse(state.course.starting_speed) : state.course.starting_speed;
         },
         setHost(state, host) {
             state.host = host;
@@ -209,12 +214,13 @@ export default new Vuex.Store({
         },
         setCars(state, cars) {
             cars.forEach((car) => {
+                let trace = typeof car.trace === "string" ? JSON.parse(car.trace) : car.trace;
                 state.cars.push({
                     id: car.id,
                     location: car.trace && car.trace.length > 1 ? car.trace[car.trace.length -1] : state.course.starting_point,
                     speed: car.speed ? car.speed : state.course.starting_speed,
                     name: car.username,
-                    trace: car.trace && car.trace.length > 1 ? car.trace : [state.course.starting_point],
+                    trace: trace && trace.length > 1 ? trace : [state.course.starting_point],
                     traceColor: car.trace_color,
                     carColor: car.car_color,
                     present: true,
@@ -327,12 +333,11 @@ export default new Vuex.Store({
             if (! context.state.click.inside) {
                 context.dispatch("fail", "outside course");
                 context.commit("setGameEnded");
-                return axios.post(`/race/${context.state.race}/fail`, {"reason": "Outside couse", ...car});
+                return axios.delete(`/race/${context.state.race}/win`, {"reason": "Outside couse", ...car});
             }
         },
         checkIfCross(context) {
             let car = context.getters.currentCar;
-            console.log(car);
             let lineStart = {};
             let lineEnd = {};
 
@@ -349,7 +354,7 @@ export default new Vuex.Store({
                     axios.post(`/race/${context.state.race}/win`, car);
                     context.dispatch("win");
                 } else {
-                    axios.post(`/race/${context.state.race}/fail`, {"reason": "Cross from wrong side", ...car});
+                    axios.delete(`/race/${context.state.race}/win`, {"reason": "Cross from wrong side", ...car});
                     context.dispatch("fail", "Cross from wrong side");
                 }
             }
@@ -359,19 +364,18 @@ export default new Vuex.Store({
         },
         joinGame(context, race) {
             axios.post(`/race/${race}/join`).then(({data: {data}}) => {
-                console.log(data);
                 context.commit("setCourse", data.course);
+                context.commit('setCars', data.participants);
                 context.commit("setYourCar", data.user_id);
                 context.commit('setCurrentCar', data.user_turn_id);
                 context.commit('setState', data.state);
-                context.commit('setCars', data.participants);
                 context.commit('setWinner', data.winner_id);
                 context.commit('setHost', data.host_id);
                 context.commit('setRace', data.id);
             });
         },
         getRaceBaseInfo(context, race) {
-            return axios.get(`/race/${race}/info`).then(({data}) => {
+            return axios.get(`/race/${race}/info`).then(({data: {data}}) => {
                 context.commit("setCourse", data.course);
                 context.commit("setYourCar", data.user_id);
                 context.commit('setCurrentCar', data.user_turn_id);
@@ -407,7 +411,7 @@ export default new Vuex.Store({
             context.commit("setGameEnded");
             Event.fire("show-result-board", {
                 heading: "Win!",
-                text: "Good job! Your awesome! :)",
+                text: "Good job! You're awesome! :)",
                 buttons: [
                     {
                         text: "Lobby",

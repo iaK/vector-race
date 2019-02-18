@@ -68,21 +68,21 @@ $factory->define(Course::class, function (Faker $faker) {
 });
 
 $factory->state(Course::class, 'test-course', [
-        "starting_point" => '{"x": 26, "y":40}',
+        "starting_point" => '{"x": 49, "y":80}',
         "finish_line" => '{
             "start": {
-                 "x": 25,
-                 "y": 30
+                 "x": 50,
+                 "y": 60
             },
             "end": {
-                "x": 25,
-                "y": 50
+                "x": 50,
+                "y": 100
             }
         }',
         "starting_speed" => '{
             "top": 0,
             "left": -1
         }',
-        "inner_track" => '[{"x":20,"y":20},{"x":30,"y":20},{"x":30,"y":30},{"x":20,"y":30},{"x":20,"y":20}]',
-        "outer_track" => '[{"x":0,"y":0},{"x":50,"y":0},{"x":50,"y":50},{"x":0,"y":50},{"x":0,"y":0}]'
+        "inner_track" => '[{"x":40,"y":40},{"x":60,"y":40},{"x":60,"y":60},{"x":40,"y":60}]',
+        "outer_track" => '[{"x":0,"y":0},{"x":100,"y":0},{"x":100,"y":100},{"x":0,"y":100}]'
 ]);
