@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueViewports from 'vue-viewports'
-import store from './stores/store'
+import store from '../stores/store'
 
 const options = [
   {

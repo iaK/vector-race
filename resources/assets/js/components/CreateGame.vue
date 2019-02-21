@@ -1,8 +1,8 @@
 <template>
     <div class="max-w-md mx-auto pt-8 px-4">
         <h1 class="text-white mb-4">Create game</h1>
-        <div class="p-5 lobbybox mb-4">
-            <select v-model="selectedCourse" class="inner text-white p-2">
+        <div class="bg-blue p-5 mb-4">
+            <select v-model="selectedCourse" class="bg-blue-darker text-white p-2">
                 <option v-for="course in courses" :value="course.id" class="text-white">
                     {{ course.name }}
                 </option>
@@ -69,16 +69,3 @@
     }
 
 </script>
-
-
-<style lang="scss" scoped>
-    .lobbybox {
-        background: rgba(22, 85, 162, 0.7);
-        .inner {
-            background-color: rgba(9, 29, 54, 0.7);
-        }
-        .marked {
-            background: rgba(22, 85, 162, 0.8);
-        }
-    }
-</style>

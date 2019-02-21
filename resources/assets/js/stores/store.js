@@ -310,15 +310,15 @@ export default new Vuex.Store({
             loc.y += location.speed.top * context.state.config.gridWidthY;
 
             context.commit("setPointers", {
-                'middle': {x: loc.x,y: loc.y},
-                'left': {x: loc.x - context.state.config.gridWidthX, y: loc.y},
-                'right': {x: loc.x + context.state.config.gridWidthX, y: loc.y},
-                'top': {x: loc.x,y: loc.y - context.state.config.gridWidthY},
-                'bottom': {x: loc.x,y: loc.y + context.state.config.gridWidthY},
-                'topLeft': {x: loc.x - context.state.config.gridWidthX, y: loc.y - context.state.config.gridWidthY},
-                'topRight': {x: loc.x + context.state.config.gridWidthX, y: loc.y - context.state.config.gridWidthY},
-                'bottomLeft': {x: loc.x - context.state.config.gridWidthX, y: loc.y + context.state.config.gridWidthY},
-                'bottomRight': {x: loc.x + context.state.config.gridWidthX, y: loc.y + context.state.config.gridWidthY},
+                middle: {x: loc.x,y: loc.y},
+                left: {x: loc.x - context.state.config.gridWidthX, y: loc.y},
+                right: {x: loc.x + context.state.config.gridWidthX, y: loc.y},
+                top: {x: loc.x,y: loc.y - context.state.config.gridWidthY},
+                bottom: {x: loc.x,y: loc.y + context.state.config.gridWidthY},
+                topLeft: {x: loc.x - context.state.config.gridWidthX, y: loc.y - context.state.config.gridWidthY},
+                topRight: {x: loc.x + context.state.config.gridWidthX, y: loc.y - context.state.config.gridWidthY},
+                bottomLeft: {x: loc.x - context.state.config.gridWidthX, y: loc.y + context.state.config.gridWidthY},
+                bottomRight: {x: loc.x + context.state.config.gridWidthX, y: loc.y + context.state.config.gridWidthY},
             });
         },
         drawLine(context, obj) {
@@ -333,7 +333,10 @@ export default new Vuex.Store({
             if (! context.state.click.inside) {
                 context.dispatch("fail", "outside course");
                 context.commit("setGameEnded");
-                return axios.delete(`/race/${context.state.race}/win`, {"reason": "Outside couse", ...car});
+                return axios.delete(`/race/${context.state.race}/win`,{data: {
+                    reason: "Outside couse",
+                    ...car
+                }});
             }
         },
         checkIfCross(context) {
@@ -354,7 +357,7 @@ export default new Vuex.Store({
                     axios.post(`/race/${context.state.race}/win`, car);
                     context.dispatch("win");
                 } else {
-                    axios.delete(`/race/${context.state.race}/win`, {"reason": "Cross from wrong side", ...car});
+                    axios.delete(`/race/${context.state.race}/win`, {data: {"reason": "Cross from wrong side", ...car}});
                     context.dispatch("fail", "Cross from wrong side");
                 }
             }

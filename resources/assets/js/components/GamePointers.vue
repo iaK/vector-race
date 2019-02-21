@@ -80,15 +80,15 @@
             ...mapMutations(["setPointers"]),
             initset(location) {
                 this.setPointers({
-                    "middle" : {x: location.x, y:location.y},
-                    "left" : {x: location.x - this.config.gridWidthX, y: location.y},
-                    "right" : {x: location.x + this.config.gridWidthX, y: location.y},
-                    "top" : {x: location.x, y: location.y - this.config.gridWidthY},
-                    "bottom" : {x: location.x, y: location.y + this.config.gridWidthY},
-                    "topLeft" : {x: location.x - this.config.gridWidthX, y:location.y - this.config.gridWidthY},
-                    "topRight" : {x: location.x + this.config.gridWidthX, y:location.y - this.config.gridWidthY},
-                    "bottomLeft" : {x: location.x - this.config.gridWidthX, y:location.y + this.config.gridWidthY},
-                    "bottomRight" : {x: location.x + this.config.gridWidthX, y:location.y + this.config.gridWidthY},
+                    middle : {x: location.x, y:location.y},
+                    left : {x: location.x - this.config.gridWidthX, y: location.y},
+                    right : {x: location.x + this.config.gridWidthX, y: location.y},
+                    top : {x: location.x, y: location.y - this.config.gridWidthY},
+                    bottom : {x: location.x, y: location.y + this.config.gridWidthY},
+                    topLeft : {x: location.x - this.config.gridWidthX, y:location.y - this.config.gridWidthY},
+                    topRight : {x: location.x + this.config.gridWidthX, y:location.y - this.config.gridWidthY},
+                    bottomLeft : {x: location.x - this.config.gridWidthX, y:location.y + this.config.gridWidthY},
+                    bottomRight : {x: location.x + this.config.gridWidthX, y:location.y + this.config.gridWidthY},
                 })
             }
         },

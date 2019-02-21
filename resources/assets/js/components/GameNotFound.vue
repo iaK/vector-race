@@ -8,7 +8,6 @@
     export default {
 
         mounted() {
-            console.log("test");
             Event.fire('show-result-board', {
                 heading: "Not found",
                 text: "Game not found or has been ended.",
@@ -21,9 +20,6 @@
                 }]
             });
         },
-
-        methods: {
-        }
     }
 
 </script>

@@ -1,9 +1,9 @@
 <template>
     <div class="max-w-md mx-auto pt-8 px-4">
         <h1 class="text-white mb-4">Lobby</h1>
-        <div class="p-2 lobbybox mb-4">
+        <div class="p-2 bg-blue mb-4">
             <div
-                class="inner w-full p-2 overflow-y-scroll"
+                class="bg-blue-darker w-full p-2 overflow-y-scroll scrollbar"
                 style="height: 230px;"
                 ref="raceContainer"
             >
@@ -11,7 +11,7 @@
                     <li
                         v-for="(race, index) in races"
                         class="mb-2 text-white px-2 py-1 cursor-pointer"
-                        :class="{'marked': isMarked(index)}"
+                        :class="{'bg-blue-lighter': isMarked(index)}"
                         @click="mark(index)"
                         @dblclick="join"
                     >
@@ -169,15 +169,3 @@
     }
 
 </script>
-
-<style lang="scss" scoped>
-    .lobbybox {
-        background: rgba(22, 85, 162, 0.7);
-        .inner {
-            background-color: rgba(9, 29, 54, 0.7);
-        }
-        .marked {
-            background: rgba(22, 85, 162, 0.8);
-        }
-    }
-</style>

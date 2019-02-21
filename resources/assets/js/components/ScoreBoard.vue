@@ -11,7 +11,7 @@
                 class="flex mb-4"
             >
                 <div
-                    class="flex flex-grow items-center justify-between scoreboard-item py-2 px-10 border border-blue-lightest border-1 text-white"
+                    class="scoreboard-item bg-blue flex flex-grow items-center justify-between py-2 px-10 border border-blue-lightest border-1 text-white"
                     :class="{'opacity-50' : !car.inRace}"
                     style="width: 250px"
                 >
@@ -78,7 +78,6 @@
 
 <style scoped>
     .scoreboard-item {
-        background: rgba(22, 85, 162, 0.7);
         width: 300px;
         transform:skewX(-10deg);
     }

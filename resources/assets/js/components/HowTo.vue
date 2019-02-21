@@ -6,7 +6,7 @@
         :scrollable="true"
         height="auto"
     >
-        <div class="menuBox text-white p-10 border border-blue-lightest border-1 relative">
+        <div class="bg-blue-light text-white p-10 border border-blue-lightest border-1 relative">
             <div class="absolute pin-r pin-t mr-2 mt-2 text-lg text-white cursor-pointer" @click="close">x</div>
             <h1 class="text-3xl text-center mb-6 text-white">How to play</h1>
             <p class="mb-2">
@@ -49,9 +49,3 @@
     }
 
 </script>
-
-<style lang="scss" scoped>
-    .menuBox {
-        background: rgba(22, 85, 162, 0.9);
-    }
-</style>

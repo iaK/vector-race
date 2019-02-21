@@ -14,28 +14,51 @@
             height="auto"
         >
             <div class="menuBox p-10 border border-blue-lightest border-1" style="width: 500px">
-                <h1 class="text-3xl text-center mb-6 text-white">Settings</h1>
-                <p class="text-white text-lg mb-2">Username</p>
-                <input class="mb-6 p-4 chat-input text-white w-full" type="text" v-model="username">
-                <p class="text-white text-lg mb-2">Car color</p>
-                <select v-model="selectedCarColor" class="inner text-white p-2 mb-6 w-full">
+
+                <h1 class="text-3xl text-center mb-6 text-white">
+                    Settings
+                </h1>
+
+                <p class="text-white text-lg mb-2">
+                    Username
+                </p>
+
+                <input
+                    v-model="username"
+                    type="text"
+                    class="bg-blue-darker mb-6 p-4 text-white w-full"
+                />
+
+                <p class="text-white text-lg mb-2">
+                    Car color
+                </p>
+
+                <select v-model="selectedCarColor" class="bg-blue-darker text-white p-2 mb-6 w-full">
                     <option v-for="color in carColors" :value="color.slug" class="text-white">
                         {{ color.value }}
                     </option>
                 </select>
-                <p class="text-white text-lg mb-2 w-full">Trace color</p>
-                <select v-model="selectedTraceColor" class="inner text-white p-2 w-full mb-6">
+
+                <p class="text-white text-lg mb-2 w-full">
+                    Trace color
+                </p>
+
+                <select v-model="selectedTraceColor" class="bg-blue-darker text-white p-2 w-full mb-6">
                     <option v-for="color in traceColors" :value="color.slug" class="text-white">
                         {{ color.value }}
                     </option>
                 </select>
+
                 <div class="flex justify-between">
+
                     <button class="btn" @click.prevent="save">
                         {{ saved ? "Saved" : saving ? "Saving.." : "Save" }}
                     </button>
+
                     <button class="btn" @click.prevent="logout">
                         Logout
                     </button>
+
                 </div>
             </div>
         </modal>

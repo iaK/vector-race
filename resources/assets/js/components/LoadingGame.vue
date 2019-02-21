@@ -1,6 +1,6 @@
 <template>
     <div>
-        <vector-game v-if="loaded"></vector-game>
+        <game-board v-if="loaded"></game-board>
         <div class="flex items-center absolute w-full h-full justify-center pin-l pin-t" v-else>
             <vue-loading type="bars" color="rgba(9, 29, 54, 0.9)" :size="{ width: '100px', height: '100px' }"></vue-loading>
         </div>

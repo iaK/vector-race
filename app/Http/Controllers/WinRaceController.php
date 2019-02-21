@@ -19,6 +19,7 @@ class WinRaceController extends Controller
         }
 
         $this->moveCar($request, $race);
+
         $race->crownWinner(auth()->user());
 
         broadcast(new PlayerWon($race, auth()->user()));

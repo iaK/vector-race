@@ -1,5 +1,5 @@
 <template>
-    <div v-if="show" class="flex items-center justify-center countdown-board xl:py-10 xl:px-10 mb-4 border border-blue-lightest border-1 text-white text-4xl xl:w-full w-12 h-12 xl:h-auto mt-4 xl:mt-0">
+    <div v-if="show" class="bg-blue flex items-center justify-center xl:py-10 xl:px-10 mb-4 border border-blue-lightest border-1 text-white text-4xl xl:w-full w-12 h-12 xl:h-auto mt-4 xl:mt-0">
         {{ secondsLeft }}
     </div>
 </template>
@@ -56,10 +56,3 @@
         }
     }
 </script>
-
-<style>
-    .countdown-board {
-        background: rgba(22, 85, 162, 0.7);
-        /*transform:skewX(-10deg);*/
-    }
-</style>

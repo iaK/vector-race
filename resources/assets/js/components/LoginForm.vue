@@ -12,7 +12,7 @@
                 </p>
 
                 <input
-                    class="mb-2 p-4 chat-input text-white w-full"
+                    class="bg-blue-darker mb-2 p-4 chat-input text-white w-full"
                     dusk="email"
                     name="email"
                     placeholder="Email"
@@ -20,7 +20,7 @@
                     v-model="email"
                 >
                 <input
-                    class="mb-4 p-4 chat-input text-white w-full"
+                    class="bg-blue-darker mb-4 p-4 chat-input text-white w-full"
                     dusk="password"
                     name="password"
                     placeholder="Password"
@@ -77,9 +77,3 @@
     }
 
 </script>
-
-<style lang="scss" scoped>
-    input {
-        background-color: rgba(9, 29, 54, 0.7);
-    }
-</style>

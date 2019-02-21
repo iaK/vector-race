@@ -7,8 +7,9 @@
 canvas {
     width: 960px;
     height: 960px;
+    overflow: scroll;
     image-rendering: pixelated;
-    //background: #12437e;
+    -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -22,18 +23,20 @@ body {
     transform:skewX(-10deg);
 }
 
-.chatbox {
-    ::-webkit-scrollbar {
-        width: 12px;
-    }
-
-    ::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    }
-
-    ::-webkit-scrollbar-thumb {
-        height: 30px;
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-    }
+.scrollbar {
+    overflow-y: scroll;
 }
-    
+
+.scrollbar::-webkit-scrollbar {
+    width: 12px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    height: 30px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+

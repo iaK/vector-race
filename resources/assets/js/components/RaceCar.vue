@@ -3,7 +3,12 @@
     import carImages from '../cars.js';
 
     export default {
-        props: ['car'],
+        props: {
+            car: {
+                type: Object,
+                required: true,
+            }
+        },
 
         data() {
             return {
@@ -30,7 +35,7 @@
 
         render(createElement) {
             return createElement(
-                'game-trace',   // tag name
+                'car-trace',
                 {
                     props: {
                         car: this.car,
@@ -45,19 +50,17 @@
 
         methods: {
             rerender() {
-                this.drawCar()
+                if (this.car.speed && this.imageLoaded) {
+                    this.drawCar()
+                }
             },
             drawCar() {
-                if (!this.car.speed || !this.imageLoaded) {
-                    return;
-                }
-                let car = this.car;
-                let angel = this.speedToAngel(car.speed);
-                this.ctx.translate(car.location.x, car.location.y);
+                let angel = this.speedToAngel(this.car.speed);
+                this.ctx.translate(this.car.location.x, this.car.location.y);
                 this.ctx.rotate(angel);
                 this.ctx.drawImage(this.image, - this.config.car.width / 2, - this.config.car.height / 2,this.config.car.width,this.config.car.height);
                 this.ctx.rotate(- angel);
-                this.ctx.translate(-car.location.x, -car.location.y);
+                this.ctx.translate(-this.car.location.x, -this.car.location.y);
             },
             speedToAngel(speed) {
                 let rad = Math.atan(speed.top / speed.left) + 1.5707963268

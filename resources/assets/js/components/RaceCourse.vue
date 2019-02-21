@@ -18,40 +18,18 @@
         },
 
         render() {
-            if (! this.course) {
-                return;
-            }
             this.drawCourse();
             this.drawFinishLine()
         },
 
         computed: {
             ...mapState(["ctx", 'config', 'course', 'canvas']),
-            path() {
 
+            path() {
                 let path = new Path2D();
 
-                let outer = this.course.outer_track.slice();
-                let start = outer.shift();
- 
-                path.moveTo(start.x, start.y);
-
-                outer.forEach(value => {
-                    path.lineTo(value.x, value.y);
-                });
-                
-                path.closePath();
-
-                let inner = this.course.inner_track.slice();
-                
-                start = inner.shift();
-                path.moveTo(start.x, start.y);
-
-                inner.forEach(value => {
-                    path.lineTo(value.x, value.y);
-                });
-
-                path.closePath();
+                path = this.drawCourseLine(path, this.course.outer_track.slice());
+                path = this.drawCourseLine(path, this.course.inner_track.slice());
 
                 return path;
             },
@@ -59,11 +37,8 @@
 
         methods: {
             ...mapMutations(["setCoursePath"]),
+
             rerender() {
-                if (!this.course) {
-                    return;
-                }
-                
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                 this.drawBackground();
                 this.drawCourse();
@@ -73,6 +48,21 @@
 
                 Event.fire("backgroundRendered")
             },
+
+            drawCourseLine(path, line) {
+                let start = line.shift();
+
+                path.moveTo(start.x, start.y);
+
+                line.forEach(value => {
+                    path.lineTo(value.x, value.y);
+                });
+
+                path.closePath();
+
+                return path;
+            },
+
             drawFinishLine() {
                 let path = new Path2D()
                 path.moveTo(this.course.finish_line.start.x, this.course.finish_line.start.y);
@@ -82,8 +72,8 @@
                 this.ctx.lineWidth = 2;
                 this.ctx.stroke(path);
             },
+
             drawCourse() {
-                // move to drawer
                 this.setCoursePath(this.path);
                 this.ctx.strokeStyle = "#bee3f5";
                 this.ctx.fillStyle = "rgba(22, 85, 162, 0.7)";
@@ -91,10 +81,12 @@
                 this.ctx.fill(this.path);
                 this.ctx.stroke(this.path);
             },
+
             drawBackground() {
                 this.ctx.fillStyle = "rgba(18, 67, 126, .7)";
                 this.ctx.fillRect(0,0,960,960);
             },
+
             drawGridX() {
                 let start = this.config.gridWidthX;
                 do {

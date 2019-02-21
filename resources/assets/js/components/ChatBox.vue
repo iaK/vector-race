@@ -1,6 +1,6 @@
 <template>
-    <div class="chatbox p-4 w-full border border-blue-lightest">
-        <div class="inner mb-4 w-full p-4 overflow-y-scroll" ref="inner" style="height: 250px">
+    <div class="bg-blue p-4 w-full border border-blue-lightest">
+        <div class="bg-blue-darker mb-4 w-full p-4 overflow-y-scroll scrollbar" ref="inner" style="height: 250px">
             <ul class="list-reset">
                 <li v-for="event in events" class="mb-2">
                     <span v-if="event.type == 'system'" class="text-grey italic">
@@ -12,7 +12,7 @@
                 </li>
             </ul>
         </div>
-        <input type="text" :value="message" class="p-4 chat-input text-white w-full" placeholder="type to chat" @keyup.enter="submit">
+        <input type="text" :value="message" class="chat-input bg-blue-darker p-4 text-white w-full" placeholder="type to chat" @keyup.enter="submit">
     </div>
 </template>
 <script>
@@ -86,22 +86,3 @@
         }
     }
 </script>
-
-<style lang="scss" scoped>
-    .chatbox {
-        background: rgba(22, 85, 162, 0.7);
-        .inner {
-            background-color: rgba(9, 29, 54, 0.7);
-        }
-
-        .chat-input {
-            background-color: rgba(9, 29, 54, 0.7);
-        }
-    }
-
-
-    /* Handle */
-
-
-        /* Track */
-</style>
