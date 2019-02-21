@@ -3,7 +3,7 @@
         <img
             :src="gravatarUrl"
             alt="Avatar"
-            class="w-10 h-10 rounded-full cursor-pointer z-50 border border-1 border-blue-lightest fixed pin-t pin-l xl:pin-none xl:pin-r mx-auto xl:text-left pin-r z-50 mt-4 xl:mr-4"
+            class="w-10 h-10 rounded-full cursor-pointer z-50 border mb-4 border-1 border-blue-lightest fixed pin-b pin-l xl:pin-none xl:pin-r xl:pin-t mx-auto xl:text-left pin-r z-50 xl:mt-4 xl:mb-0 xl:mr-4"
             @click="openMenu"
         />
         <modal
